@@ -41,7 +41,7 @@ type AuthenticatorOAuth2IntrospectionConfiguration struct {
 	PreserveHost                bool                                                  `json:"preserve_host"`
 	BearerTokenLocation         *helper.BearerTokenLocation                           `json:"token_from"`
 	Prefix                      string                                                `json:"prefix"`
-	IntrospectionRequestHeaders map[string]string                                     `json:"introspection_request_headers"`
+	IntrospectionRequestHeaders map[string]string                                     `json:"headers"`
 	Retry                       *AuthenticatorOAuth2IntrospectionRetryConfiguration   `json:"retry"`
 	Cache                       cacheConfig                                           `json:"cache"`
 }
@@ -103,7 +103,7 @@ type AuthenticatorOAuth2IntrospectionResult struct {
 }
 
 func (a *Audience) UnmarshalJSON(b []byte) error {
-	var errUnsupportedType = errors.New("Unsupported aud type, only string or []string are allowed")
+	errUnsupportedType := errors.New("Unsupported aud type, only string or []string are allowed")
 
 	var jsonObject interface{}
 	err := json.Unmarshal(b, &jsonObject)
